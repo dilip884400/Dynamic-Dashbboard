@@ -15,12 +15,12 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
       <h2 className="font-bold text-lg">{category.name}</h2>
       <div className="md:flex gap-[1%] w-full justify-start ">
         {category.widgets.map((wid: any) => (
-          <Widget widget={wid} />
+          <Widget key={wid.id} widget={wid} />
         ))}
         <div className="h-64	 bg-white md:w-[32.66%] w-full mb-2 rounded-2xl flex justify-center items-center">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="border-2 border-border px-3 py-1 rounded-lg flex items-center gap-2 text-lightText font-medium"
+            className="border-2 border-border px-3 py-1 rounded-lg flex items-center gap-2 text-lightText font-medium hover:bg-gray-200"
           >
             <FaPlus /> Add Widget
           </button>

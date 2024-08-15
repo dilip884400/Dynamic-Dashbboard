@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 
 interface AddWidgetModalProps {
-  isOpen?: boolean;
+  isOpen?: any;
   onClose?: () => void;
 }
 
@@ -24,13 +24,13 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({ isOpen, onClose }) => {
           top: 0,
           bottom: 0,
           right: 0,
-          left: "60%", // Ensures the content starts at the 50% mark from the left
+          left: "60%",
           height: "100%",
-          width: "40%", // Ensures the modal takes the right 50% of the screen
-          padding: 0, // Optional padding
-          border: "none", // Optional border styling
-          borderRadius: "0px", // Optional border radius styling
-          overflow: "auto", // Optional overflow styling
+          width: "40%",
+          padding: 0,
+          border: "none",
+          borderRadius: "0px",
+          overflow: "auto",
         },
       }}
     >

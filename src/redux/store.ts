@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import WidgetSlice from './slices/widget'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    categories: WidgetSlice,
+  },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

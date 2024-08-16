@@ -6,12 +6,12 @@ export const data = {
       widgets: [
         {
           id: "widget1",
-          name: "Widget 1",
+          name: "First Widget",
           visible:true,
         },
         {
           id: "widget2",
-          name: "Widget 2",
+          name: "Second Widget",
           visible:true,
         },
       ],
@@ -21,8 +21,8 @@ export const data = {
       name: "CWPP Dashboard",
       widgets: [
         {
-          id: "widget1",
-          name: "Widget 1",
+          id: "widget3",
+          name: "Third Widget",
           visible:true,
         },
       ],

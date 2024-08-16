@@ -11,16 +11,14 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "@/redux/hooks";
 
-interface AddWidgetModalProps {
+interface AddWidgetMultipleCategoryProps {
   isOpen?: any;
   onClose?: () => void;
-  category?: any;
 }
 
-const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
+const AddWidgetMultipleCategory: React.FC<AddWidgetMultipleCategoryProps> = ({
   isOpen,
   onClose,
-  category,
 }) => {
   const [widget, setWidget] = useState({
     id: "",
@@ -28,11 +26,17 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
     visible: true,
   });
   const [validation, setValidation] = useState("");
-  const categories = useAppSelector((state) =>
-    state.categories.find((cat: any) => cat?.id === category?.id)
-  );
+  const categories = useAppSelector((state) => state.categories);
 
   const dispatch = useDispatch();
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState(
+    categories?.[0]?.id || null
+  );
+
+  const handleCategoryClick = (cat: any) => {
+    setSelectedCategoryId(cat?.id);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -52,7 +56,9 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
         id: uuidv4(),
       };
 
-      dispatch(addWidget({ categoryId: category?.id, widget: newWidget }));
+      dispatch(
+        addWidget({ categoryId: selectedCategoryId, widget: newWidget })
+      );
 
       setWidget({
         id: "",
@@ -65,11 +71,15 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
   const handleEditVisible = (id: any) => {
     dispatch(
       toggleWidgetVisibility({
-        categoryId: category?.id,
+        categoryId: selectedCategoryId,
         widgetId: id,
       })
     );
   };
+
+  const category = useAppSelector((state) =>
+    state.categories.find((cat: any) => cat?.id === selectedCategoryId)
+  );
 
   return (
     <ReactModal
@@ -106,7 +116,23 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
           Personalize your dashboard by adding the following widget
         </h2>
 
-        {categories?.widgets?.map((wid: any) => (
+        <div className="flex mb-4 mx-4 border-b">
+          {categories?.map((cat: any) => (
+            <div
+              key={cat.id}
+              className={`p-3 cursor-pointer ${
+                selectedCategoryId === cat.id
+                  ? "text-black border-b-2 border-b-indigo-500"
+                  : "text-gray-500"
+              }`}
+              onClick={() => handleCategoryClick(cat)}
+            >
+              {cat.name.slice(0, 4)}
+            </div>
+          ))}
+        </div>
+
+        {category?.widgets?.map((wid: any) => (
           <div key={wid?.id} className="w-full flex justify-center mb-2">
             <div className="flex justify-start items-center gap-4 p-1 w-[95%] border-2 rounded text-[#585977]">
               <input
@@ -121,7 +147,7 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
                 onClick={() => {
                   dispatch(
                     deleteWidget({
-                      categoryId: category?.id,
+                      categoryId: selectedCategoryId,
                       widgetId: wid?.id,
                     })
                   );
@@ -154,4 +180,4 @@ const AddWidgetModal: React.FC<AddWidgetModalProps> = ({
   );
 };
 
-export default AddWidgetModal;
+export default AddWidgetMultipleCategory;

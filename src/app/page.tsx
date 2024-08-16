@@ -6,11 +6,11 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <Provider store={store}>
-      <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
+      <Provider store={store}>
         <Navbar />
         <Dashboard />
-      </div>
-    </Provider>
+      </Provider>
+    </div>
   );
 }

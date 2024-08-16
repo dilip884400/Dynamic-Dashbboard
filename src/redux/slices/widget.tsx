@@ -1,13 +1,16 @@
 import { data } from "@/utils/data";
 import { createSlice } from "@reduxjs/toolkit";
 
-const localStorageData = localStorage.getItem("categories");
+const localData =
+  typeof window !== "undefined"
+    ? window.localStorage.getItem("categories")
+    : null;
+
+let local = localData ? JSON.parse(localData) : false;
 
 export const WidgetSlice = createSlice({
   name: "categories",
-  initialState: localStorageData
-    ? JSON.parse(localStorageData)
-    : data.categories,
+  initialState: local ? local : data?.categories,
   reducers: {
     addWidget: (state: any, action) => {
       const { categoryId, widget } = action.payload;

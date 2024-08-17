@@ -9,9 +9,14 @@ const Navbar = () => {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   dispatch(searchWidgets(searchInput));
+  // }, [searchInput]);
+
+  const handleChnage = (e: any) => {
+    setSearchInput(e.target.value);
     dispatch(searchWidgets(searchInput));
-  }, [searchInput]);
+  };
 
   return (
     <div className="w-full h-10 bg-white mb-8 flex items-center justify-between">
@@ -28,7 +33,7 @@ const Navbar = () => {
           className="outline-none text-gray-600 bg-[#f0f4fa]"
           placeholder="search anything"
           value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          onChange={handleChnage}
         />
       </div>
     </div>

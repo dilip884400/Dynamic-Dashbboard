@@ -1,4 +1,3 @@
-
 export const data = {
   categories: [
     {
@@ -8,12 +7,12 @@ export const data = {
         {
           id: "widget1",
           name: "First Widget",
-          visible:true,
+          visible: true,
         },
         {
           id: "widget2",
           name: "Second Widget",
-          visible:true,
+          visible: true,
         },
       ],
     },
@@ -24,7 +23,12 @@ export const data = {
         {
           id: "widget3",
           name: "Third Widget",
-          visible:true,
+          visible: true,
+        },
+        {
+          id: "widget4",
+          name: "Fourth Widget",
+          visible: true,
         },
       ],
     },

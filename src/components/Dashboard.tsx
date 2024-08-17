@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Category from "./Category";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import AddWidgetMultipleCategory from "./AddWidgetMultipleCategory";
+import { setCategories } from "@/redux/slices/widget";
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const storedCategories = localStorage.getItem("categories");
+    if (storedCategories) {
+      console.log("Categories found in localStorage:", storedCategories);
+      try {
+        const parsedCategories = JSON.parse(storedCategories);
+        dispatch(setCategories(parsedCategories));
+      } catch (e) {
+        console.error("Error parsing categories from localStorage:", e);
+      }
+    }
+  }, [dispatch]);
 
   return (
     <div className="h-full w-11/12 flex flex-col justify-center items-center">

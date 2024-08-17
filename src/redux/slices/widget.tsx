@@ -1,17 +1,15 @@
-import { data } from "@/utils/data";
 import { createSlice } from "@reduxjs/toolkit";
+import { data } from "@/utils/data";
 
-const localData =
-  typeof window !== "undefined"
-    ? window.localStorage.getItem("categories")
-    : null;
-
-let local = localData ? JSON.parse(localData) : false;
+const initialState = data?.categories;
 
 export const WidgetSlice = createSlice({
   name: "categories",
-  initialState: local ? local : data?.categories,
+  initialState,
   reducers: {
+    setCategories: (state, action) => {
+      return action.payload;
+    },
     addWidget: (state: any, action) => {
       const { categoryId, widget } = action.payload;
       const category = state.find((cat: any) => cat.id === categoryId);
@@ -48,7 +46,7 @@ export const WidgetSlice = createSlice({
     searchWidgets: (state, action) => {
       const searchTerm = action.payload.toLowerCase();
       if (searchTerm === "") {
-        return data.categories;
+        return state || data.categories
       }
       return state.map((category: any) => ({
         ...category,
@@ -65,6 +63,7 @@ export const {
   deleteWidget,
   toggleWidgetVisibility,
   searchWidgets,
+  setCategories,
 } = WidgetSlice.actions;
 
 export default WidgetSlice.reducer;
